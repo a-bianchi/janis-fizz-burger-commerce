@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Nest Framework",
+      "program": "${workspaceFolder}/node_modules/nodemon/bin/nodemon.js", 
+      "args": ["${workspaceFolder}/index.js"],
+      "runtimeArgs": ["--inspect"], // Opciones adicionales para nodemon si las necesitas
+      "sourceMaps": true,
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env", 
+      "preLaunchTask": "npm: start", // Asegúrate de tener una tarea "start" definida en tu archivo tasks.json
+      "restart": true,
+      "console": "integratedTerminal"
+    }
+  ]
+}
