@@ -5,13 +5,16 @@ module.exports = {
     describe: 'readonly',
     it: 'readonly',
     beforeEach: 'readonly',
-    expect: 'readonly',
+    expect: 'readonly'
   },
 
   env: {
     node: true,
     es6: true,
+    jest: true
   },
+
+  ignorePatterns: ['.eslintrc.js'],
 
   parser: '@babel/eslint-parser',
 
@@ -19,8 +22,8 @@ module.exports = {
     sourceType: 'module',
     requireConfigFile: false,
     babelOptions: {
-      presets: ['@babel/preset-env'],
-    },
+      presets: ['@babel/preset-env']
+    }
   },
 
   rules: {
@@ -28,13 +31,13 @@ module.exports = {
     'no-console': 0,
     'no-tabs': 0,
     'import/prefer-default-export': 'off',
-    indent: ['error', 'tab', { SwitchCase: 1 }],
+
     'comma-dangle': ['error', 'never'],
     'no-restricted-syntax': [
       'error',
       'ForInStatement',
       'LabeledStatement',
-      'WithStatement',
+      'WithStatement'
     ],
     curly: ['error', 'multi-or-nest'],
     'space-before-function-paren': [
@@ -42,50 +45,50 @@ module.exports = {
       {
         anonymous: 'never',
         named: 'never',
-        asyncArrow: 'always',
-      },
+        asyncArrow: 'always'
+      }
     ],
     'max-len': [
       'error',
       {
         code: 150,
         tabWidth: 1,
-        comments: 200,
-      },
+        comments: 200
+      }
     ],
     'spaced-comment': [
       'error',
       'always',
       {
-        exceptions: ['*'],
-      },
+        exceptions: ['*']
+      }
     ],
     'keyword-spacing': [
       'error',
       {
         overrides: {
           if: {
-            after: false,
+            after: false
           },
           for: {
-            after: false,
+            after: false
           },
           while: {
-            after: false,
+            after: false
           },
           switch: {
-            after: false,
+            after: false
           },
           catch: {
-            after: false,
-          },
-        },
-      },
+            after: false
+          }
+        }
+      }
     ],
     'nonblock-statement-body-position': [
       'error',
       'below',
-      { overrides: { else: 'any' } },
+      { overrides: { else: 'any' } }
     ],
     'no-plusplus': 0,
     'object-curly-newline': [
@@ -94,10 +97,10 @@ module.exports = {
         ObjectExpression: {
           minProperties: 5,
           multiline: true,
-          consistent: true,
+          consistent: true
         },
-        ObjectPattern: { minProperties: 5, multiline: true, consistent: true },
-      },
+        ObjectPattern: { minProperties: 5, multiline: true, consistent: true }
+      }
     ],
     'operator-linebreak': 0,
     'no-continue': 0,
@@ -109,7 +112,7 @@ module.exports = {
     'import/no-unresolved': 0,
     'import/no-extraneous-dependencies': [
       'error',
-      { devDependencies: ['**/tests/**/*.js'] },
+      { devDependencies: ['**/tests/**/*.js'] }
     ],
     'no-bitwise': 0,
     'no-underscore-dangle': [
@@ -117,8 +120,8 @@ module.exports = {
       {
         allowAfterThis: true,
         allowAfterSuper: true,
-        allow: ['_call', '__rootpath', '_where'],
-      },
+        allow: ['_call', '__rootpath', '_where']
+      }
     ],
     'no-new': 0,
     'func-names': 0,
@@ -128,12 +131,12 @@ module.exports = {
     'newline-per-chained-call': [
       'error',
       {
-        ignoreChainWithDepth: 2,
-      },
+        ignoreChainWithDepth: 2
+      }
     ],
     'no-param-reassign': 0,
     'no-prototype-builtins': 0,
     'function-paren-newline': 0,
-    'no-await-in-loop': 0,
-  },
+    'no-await-in-loop': 0
+  }
 };
