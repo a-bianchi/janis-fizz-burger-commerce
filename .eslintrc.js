@@ -27,6 +27,7 @@ module.exports = {
   },
 
   rules: {
+    'import/no-extraneous-dependencies': 'off',
     strict: ['error', 'global'],
     'no-console': 0,
     'no-tabs': 0,
