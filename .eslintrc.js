@@ -110,10 +110,6 @@ module.exports = {
     'consistent-return': 0,
     'prefer-template': 0,
     'import/no-unresolved': 0,
-    'import/no-extraneous-dependencies': [
-      'error',
-      { devDependencies: ['**/tests/**/*.js'] }
-    ],
     'no-bitwise': 0,
     'no-underscore-dangle': [
       'warn',

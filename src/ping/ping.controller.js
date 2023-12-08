@@ -1,5 +1,4 @@
 import { Controller, Get, VERSION_NEUTRAL } from '@nestjs/common';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { ApiOkResponse } from '@nestjs/swagger';
 
 @Controller({
