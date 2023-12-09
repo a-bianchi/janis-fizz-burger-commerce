@@ -30,24 +30,21 @@ export class ProductService {
     let queryFind = this.productModel.find(query);
     if(sort)
       queryFind = queryFind.sort(sort);
-    return queryFind.select('-__v')
-      .select('-_id')
+    return queryFind.select('-_id -__v')
       .exec();
   }
 
   async findProductById(id) {
     return this.productModel
       .findOne({ id })
-      .select('-__v')
-      .select('-_id')
+      .select('-_id -__v')
       .exec();
   }
 
   async findProductByNormalizedName(normalizedName) {
     return this.productModel
       .findOne({ normalizedName })
-      .select('-__v')
-      .select('-_id')
+      .select('-_id -__v')
       .exec();
   }
 
@@ -70,7 +67,7 @@ export class ProductService {
   }
 
   async deleteProduct(id) {
-    return this.productModel.findOneAndDelete({ id }).select('-_id')
+    return this.productModel.findOneAndDelete({ id })
       .exec();
   }
 }
