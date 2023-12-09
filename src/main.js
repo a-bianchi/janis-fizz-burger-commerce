@@ -1,6 +1,7 @@
 import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
+import helmet from 'helmet';
 // import { SwaggerModule } from '@nestjs/swagger';
 // import { swaggerConfig } from './modules/config';
 
@@ -25,6 +26,8 @@ async function bootstrap() {
     type: VersioningType.URI,
     defaultVersion: '1'
   });
+
+  app.use(helmet());
 
   // const document = SwaggerModule.createDocument(app, swaggerConfig);
   // SwaggerModule.setup('documentation', app, document);
