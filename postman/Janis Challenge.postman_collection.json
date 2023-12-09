@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "a1f6eea0-62ea-4136-8f48-4376e5f63ee8",
+		"name": "Janis Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4404886"
+	},
+	"item": [
+		{
+			"name": "getAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/products?priceFrom=6&priceTo=12&isPromotion=0&type=burger&orderBy=price&orderDirection=desc",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "priceFrom",
+							"value": "6"
+						},
+						{
+							"key": "priceTo",
+							"value": "12"
+						},
+						{
+							"key": "isPromotion",
+							"value": "0"
+						},
+						{
+							"key": "type",
+							"value": "burger"
+						},
+						{
+							"key": "orderBy",
+							"value": "price"
+						},
+						{
+							"key": "orderDirection",
+							"value": "desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOne",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/products/04ca76d5-752b-4873-93e5-2a1dad7b54a0",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"products",
+						"04ca76d5-752b-4873-93e5-2a1dad7b54a0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/products/04ca76d5-752b-4873-93e5-2a1dad7b54a0",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"products",
+						"04ca76d5-752b-4873-93e5-2a1dad7b54a0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Coca cola 1\",\n  \"type\": \"drinks\",\n  \"price\": 6,\n  \"image\": \"https://example.com/burger.jpg\",\n  \"isPromotion\": true,\n  \"discount\": 2.5,\n  \"ingredients\": [\"sugar\"],\n  \"status\": \"active\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/products",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"burger\",\n    \"price\": 5,\n    \"image\": \"https://example.com/burger.jpg\",\n    \"isPromotion\": true,\n    \"discount\": 2.5,\n    \"ingredients\": [\n        \"beef patty\",\n        \"lettuce\",\n        \"tomato\",\n        \"cheddar cheese\",\n        \"brioche bun\"\n    ],\n  \n    \"dateCreated\": \"2023-12-09T17:25:39.340Z\",\n    \"dateModified\": \"2023-12-09T17:25:39.340Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/products/af795409-0fb7-4e81-92f6-5e622758e9e3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"products",
+						"af795409-0fb7-4e81-92f6-5e622758e9e3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
