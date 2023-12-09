@@ -9,6 +9,8 @@ RUN npm install
 
 COPY . .
 
+RUN npm run build
+
 FROM node:18-alpine3.16 as production
 
 ARG NODE_ENV=production
@@ -22,6 +24,6 @@ RUN npm install --only=prod
 
 COPY . .
 
-COPY --from=development /usr/src/app /usr/src/app
+COPY --from=development /usr/src/app/dist ./dist
 
 CMD ["node", "dist/api/main"]

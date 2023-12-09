@@ -5,7 +5,12 @@ import { PingController } from '../ping/ping.controller';
 import { ProductModule } from '../product/product.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }),
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    MongooseModule.forRoot(process.env.MONGODB_URI, {
+      autoIndex: true,
+      dbName: process.env.MONGODB_NAME
+    }),
     ProductModule
   ],
   controllers: [PingController],
@@ -16,14 +21,6 @@ export class AppModule {
 
   constructor() {
     const configService = new ConfigService();
-
-    MongooseModule.forRoot(
-      configService.get('MONGODB_URI') || 'mongodb://localhost:27017/tracker',
-      {
-        autoIndex: true
-      }
-    );
-
     AppModule.port = +configService.get('PORT') || 3000;
   }
 }

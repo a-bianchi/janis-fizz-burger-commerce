@@ -1,18 +1,21 @@
-import { Test } from '@nestjs/testing';
 import { ProductController } from './product.controller';
+import { ProductService } from './product.service';
 
 describe('Product Controller', () => {
-  let controller;
+  let productController;
+  let productService;
 
-  beforeEach(async () => {
-    const module = await Test.createTestingModule({
-      controllers: [ProductController]
-    }).compile();
-
-    controller = module.get(ProductController);
+  beforeEach(() => {
+    productService = new ProductService();
+    productController = new ProductController(productService);
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  describe('findAll', () => {
+    it('should return an array of cats', async () => {
+      const result = ['test'];
+      jest.spyOn(productService, 'findAllProducts').mockImplementation(() => result);
+
+      expect(await productController.findAll()).toBe(result);
+    });
   });
 });
