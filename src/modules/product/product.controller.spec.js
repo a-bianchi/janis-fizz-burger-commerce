@@ -12,12 +12,16 @@ describe('Product Controller', () => {
 
   describe('findAll', () => {
     it('should return an array of cats', async () => {
+      const queryParams = {
+        query: { },
+        sort: { }
+      };
       const result = ['test'];
       jest
         .spyOn(productService, 'findAllProducts')
         .mockImplementation(() => result);
 
-      expect(await productController.findAll()).toBe(result);
+      expect(await productController.findAll(queryParams)).toBe(result);
     });
   });
 });

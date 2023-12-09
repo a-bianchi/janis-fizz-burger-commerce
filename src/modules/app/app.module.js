@@ -8,8 +8,8 @@ import { ProductModule } from '../product/product.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot(process.env.MONGODB_URI, {
-      autoIndex: true,
-      dbName: process.env.MONGODB_NAME
+      dbName: process.env.MONGODB_NAME,
+      autoIndex: true
     }),
     ProductModule
   ],

@@ -8,13 +8,15 @@ import {
   Delete,
   Param,
   Body,
+  Query,
   ParseUUIDPipe,
   NotFoundException,
   BadRequestException,
   UsePipes
 } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { RequestValidationPipe } from '../../request-validation/request-validation.pipe';
+import { RequestValidationPipe } from '../../middlewares/request-validation/request-validation.pipe';
+import { QueryParamPipe } from '../../middlewares/query-param/query-param.pipe';
 import { ProductCreateDto } from './dtos/product.create.dto';
 import { ProductUpdateDto } from './dtos/product.update.dto';
 
@@ -40,8 +42,13 @@ export class ProductController {
   }
 
   @Get()
-  async findAll() {
-    return this.productService.findAllProducts();
+  @UsePipes(new QueryParamPipe())
+  @Bind(Query())
+  async findAll(
+    queryParams
+  ) {
+    const { query, sort } = queryParams;
+    return this.productService.findAllProducts(query, sort);
   }
 
   @Get(':id')

@@ -26,8 +26,11 @@ export class ProductService {
     return { id: product.id };
   }
 
-  async findAllProducts() {
-    return this.productModel.find().select('-__v')
+  async findAllProducts(query, sort) {
+    let queryFind = this.productModel.find(query);
+    if(sort)
+      queryFind = queryFind.sort(sort);
+    return queryFind.select('-__v')
       .select('-_id')
       .exec();
   }
@@ -53,9 +56,13 @@ export class ProductService {
     productData.dateModified = Date.now();
 
     const updateProduct = await this.productModel
-      .findOneAndUpdate({
-        id
-      }, productData, { new: true })
+      .findOneAndUpdate(
+        {
+          id
+        },
+        productData,
+        { new: true }
+      )
       .exec();
     const product = updateProduct.toObject();
 
