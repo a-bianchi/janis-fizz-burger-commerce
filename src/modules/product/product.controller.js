@@ -7,10 +7,16 @@ import {
   Put,
   Delete,
   Param,
-  Body
+  Body,
+  ParseUUIDPipe,
+  NotFoundException,
+  BadRequestException,
+  UsePipes
 } from '@nestjs/common';
 import { ProductService } from './product.service';
-// import ProductSchema from './schema/product.schema';
+import { RequestValidationPipe } from '../../request-validation/request-validation.pipe';
+import { ProductCreateDto } from './dtos/product.create.dto';
+import { ProductUpdateDto } from './dtos/product.update.dto';
 
 @Controller('products')
 @Dependencies(ProductService)
@@ -20,8 +26,16 @@ export class ProductController {
   }
 
   @Post()
+  @UsePipes(new RequestValidationPipe(ProductCreateDto))
   @Bind(Body())
   async create(productData) {
+    const lowercaseName = productData.name.toLowerCase();
+    const exists =
+      await this.productService.findProductByNormalizedName(lowercaseName);
+
+    if(exists)
+      throw new BadRequestException('Product already exists');
+
     return this.productService.createProduct(productData);
   }
 
@@ -31,20 +45,33 @@ export class ProductController {
   }
 
   @Get(':id')
-  @Bind(Param('id'))
+  @Bind(Param('id', new ParseUUIDPipe()))
   async findOne(id) {
-    return this.productService.findProductById(id);
+    const product = await this.productService.findProductById(id);
+
+    if(!product)
+      throw new NotFoundException('Product not found');
+
+    return product;
   }
 
   @Put(':id')
-  @Bind(Param('id'), Body())
+  @UsePipes(new RequestValidationPipe(ProductUpdateDto))
+  @Bind(Param('id', new ParseUUIDPipe()), Body())
   async update(id, productData) {
     return this.productService.updateProduct(id, productData);
   }
 
   @Delete(':id')
-  @Bind(Param('id'))
+  @Bind(Param('id', new ParseUUIDPipe()))
   async remove(id) {
-    return this.productService.deleteProduct(id);
+    const product = await this.productService.findProductById(id);
+
+    if(!product)
+      throw new NotFoundException('Product not exits');
+
+    await this.productService.deleteProduct(id);
+
+    return product;
   }
 }

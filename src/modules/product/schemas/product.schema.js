@@ -7,10 +7,26 @@ export const ProductType = {
   Drinks: 'drinks'
 };
 
+export const ProductTypeEnum = ['burger', 'condiments', 'snacks', 'drinks'];
+
+export const StatusEnum = ['active', 'inactive'];
+
 @Schema()
 export class Product {
-  @Prop({ required: true, type: String })
+  @Prop({
+    type: String,
+    required: true,
+    unique: true,
+    auto: false,
+    index: true
+  })
+    id;
+
+  @Prop({ type: String, required: true, unique: true })
     name;
+
+  @Prop({ type: String, index: true, required: true, unique: true })
+    normalizedName;
 
   @Prop({ required: true, enum: Object.values(ProductType), type: String })
     type;
@@ -42,7 +58,7 @@ export class Product {
   })
     ingredients;
 
-  @Prop({ type: String, default: 'active', enum: ['active', 'inactive'] })
+  @Prop({ type: String, default: 'active', enum: StatusEnum })
     status;
 
   @Prop({ type: Date, default: Date.now })

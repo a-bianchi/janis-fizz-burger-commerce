@@ -13,7 +13,9 @@ describe('Product Controller', () => {
   describe('findAll', () => {
     it('should return an array of cats', async () => {
       const result = ['test'];
-      jest.spyOn(productService, 'findAllProducts').mockImplementation(() => result);
+      jest
+        .spyOn(productService, 'findAllProducts')
+        .mockImplementation(() => result);
 
       expect(await productController.findAll()).toBe(result);
     });

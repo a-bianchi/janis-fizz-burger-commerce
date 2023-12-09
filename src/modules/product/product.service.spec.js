@@ -9,6 +9,7 @@ describe('Product Service', () => {
   beforeEach(async () => {
     mockProductModel = {
       find: jest.fn().mockReturnThis(),
+      select: jest.fn().mockReturnThis(),
       exec: jest.fn()
     };
 
