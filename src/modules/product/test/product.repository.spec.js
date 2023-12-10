@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
 import { getModelToken } from '@nestjs/mongoose';
-import { ProductRepository } from './product.repository';
+import { ProductRepository } from '../product.repository';
 
 describe('Product Repository', () => {
   let productRepository;
@@ -13,10 +13,13 @@ describe('Product Repository', () => {
       lean: jest.fn().mockReturnThis(),
       exec: jest.fn(),
       createIndexes: jest.fn().mockResolvedValue(),
-      save: jest.fn().mockResolvedValue({ toObject: jest.fn(() => ({ id: 'mockId' })) }),
+      save: jest
+        .fn()
+        .mockResolvedValue({ toObject: jest.fn(() => ({ id: 'mockId' })) }),
       findOne: jest.fn(),
       findOneAndUpdate: jest.fn(),
-      findOneAndDelete: jest.fn()
+      findOneAndDelete: jest.fn(),
+      deleteMany: jest.fn().mockResolvedValue({ deletedCount: 5 })
     };
 
     const module = await Test.createTestingModule({
@@ -35,9 +38,11 @@ describe('Product Repository', () => {
   describe('delete product', () => {
     it('should delete a product by ID', async () => {
       const mockProductId = 'mockId';
-      jest.spyOn(productRepository.productModel, 'findOneAndDelete').mockReturnValueOnce({
-        exec: jest.fn().mockResolvedValueOnce({ id: mockProductId })
-      });
+      jest
+        .spyOn(productRepository.productModel, 'deleteMany')
+        .mockReturnValueOnce({
+          exec: jest.fn().mockResolvedValueOnce({ id: mockProductId })
+        });
 
       const deletedProduct = await productRepository.delete(mockProductId);
       expect(deletedProduct.id).toEqual(mockProductId);
@@ -48,12 +53,18 @@ describe('Product Repository', () => {
     it('should update a product by ID', async () => {
       const mockProductId = 'mockId';
       const mockProductData = { id: 'mockId', name: 'Updated Product' };
-      jest.spyOn(productRepository.productModel, 'findOneAndUpdate').mockReturnValueOnce({
-        exec: jest.fn().mockResolvedValueOnce({ id: mockProductId, ...mockProductData })
-      });
+      jest
+        .spyOn(productRepository.productModel, 'findOneAndUpdate')
+        .mockReturnValueOnce({
+          exec: jest
+            .fn()
+            .mockResolvedValueOnce({ id: mockProductId, ...mockProductData })
+        });
 
-      const updatedProduct = await productRepository.update(mockProductId, mockProductData);
-      console.log('updatedProduct', updatedProduct);
+      const updatedProduct = await productRepository.update(
+        mockProductId,
+        mockProductData
+      );
       expect(updatedProduct.id).toEqual(mockProductId);
     });
   });
@@ -63,23 +74,32 @@ describe('Product Repository', () => {
       const mockQuery = { name: 'MockProduct' };
       const mockSort = { name: 'asc' };
       jest.spyOn(productRepository.productModel, 'find').mockReturnValueOnce({
-        sort: jest.fn().mockReturnValueOnce({ select: jest.fn().mockReturnValueOnce({ exec: jest.fn() }) })
+        sort: jest.fn().mockReturnValueOnce({
+          select: jest.fn().mockReturnValueOnce({ exec: jest.fn() })
+        })
       });
 
       await productRepository.find(mockQuery, mockSort);
-      expect(productRepository.productModel.find).toHaveBeenCalledWith(mockQuery);
+      expect(productRepository.productModel.find).toHaveBeenCalledWith(
+        mockQuery
+      );
     });
   });
 
   describe('findOne', () => {
     it('should find a product by ID', async () => {
       const mockProductId = 'mockId';
-      jest.spyOn(productRepository.productModel, 'findOne').mockReturnValueOnce({
-        select: jest.fn().mockReturnValueOnce({ exec: jest.fn().mockResolvedValueOnce({ id: mockProductId }) })
-      });
+      jest
+        .spyOn(productRepository.productModel, 'findOne')
+        .mockReturnValueOnce({
+          select: jest.fn().mockReturnValueOnce({
+            exec: jest.fn().mockResolvedValueOnce({ id: mockProductId })
+          })
+        });
 
       const foundProduct = await productRepository.findOne(mockProductId);
       expect(foundProduct.id).toEqual(mockProductId);
     });
   });
+
 });

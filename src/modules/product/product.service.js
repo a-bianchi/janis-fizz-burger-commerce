@@ -24,32 +24,29 @@ export class ProductService {
   }
 
   async findProductById(id) {
-    return this.productRepository
-      .findOne({ id });
+    return this.productRepository.findOne({ id });
   }
 
   async findProductByNormalizedName(normalizedName) {
-    return this.productRepository
-      .findOne({ normalizedName });
+    return this.productRepository.findOne({ normalizedName });
   }
 
   async updateProduct(id, productData) {
     delete productData.id;
     productData.dateModified = Date.now();
 
-    const updateProduct = await this.productRepository
-      .update(
-        {
-          id
-        },
-        productData,
-        { new: true }
-      );
+    const updateProduct = await this.productRepository.update(
+      {
+        id
+      },
+      productData,
+      { new: true }
+    );
 
     return { id: updateProduct.id };
   }
 
   async deleteProduct(id) {
-    return this.productRepository.delete({ id });
+    return this.productRepository.delete(id);
   }
 }

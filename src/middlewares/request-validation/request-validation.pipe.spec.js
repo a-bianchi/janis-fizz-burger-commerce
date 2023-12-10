@@ -23,7 +23,6 @@ describe('RequestValidationPipe', () => {
 
     const response = await pipe.transform(value, null);
     expect(value).toBe(response);
-
   });
 
   it('should throw BadRequestException if isPromotion is false and discount is provided', async () => {
@@ -42,7 +41,9 @@ describe('RequestValidationPipe', () => {
       await pipe.transform(value, null);
     } catch(error) {
       expect(error).toBeInstanceOf(BadRequestException);
-      expect(error.message).toBe("If 'isPromotion' is false, 'discount' should not be provided.");
+      expect(error.message).toBe(
+        "If 'isPromotion' is false, 'discount' should not be provided."
+      );
     }
   });
 
@@ -100,7 +101,9 @@ describe('RequestValidationPipe', () => {
       await pipe.transform(value, null);
     } catch(error) {
       expect(error).toBeInstanceOf(BadRequestException);
-      expect(error.message).toContain('price: price must be a positive number, ');
+      expect(error.message).toContain(
+        'price: price must be a positive number, '
+      );
     }
   });
 
@@ -138,7 +141,9 @@ describe('RequestValidationPipe', () => {
       await pipe.transform(value, null);
     } catch(error) {
       expect(error).toBeInstanceOf(BadRequestException);
-      expect(error.message).toContain('ingredients: Ingredients cannot be empty, ingredients: ingredients should not be empty, ');
+      expect(error.message).toContain(
+        'ingredients: Ingredients cannot be empty, ingredients: ingredients should not be empty, '
+      );
     }
   });
 });

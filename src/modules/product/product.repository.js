@@ -22,8 +22,7 @@ export class ProductRepository {
     let queryFind = this.productModel.find(query);
     if(sort)
       queryFind = queryFind.sort(sort);
-    return queryFind.select('-_id -__v')
-      .exec();
+    return queryFind.select('-_id -__v').exec();
   }
 
   async findOne(productFilterQuery) {
@@ -35,18 +34,14 @@ export class ProductRepository {
 
   async update(productFilterQuery, productData) {
     const updateProduct = await this.productModel
-      .findOneAndUpdate(
-        productFilterQuery,
-        productData,
-        { new: true }
-      )
+      .findOneAndUpdate(productFilterQuery, productData, { new: true })
       .exec();
 
     return updateProduct;
   }
 
   async delete(id) {
-    return this.productModel.findOneAndDelete({ id: id.toString() })
-      .exec();
+    return this.productModel.deleteMany({ id }).exec();
   }
+
 }

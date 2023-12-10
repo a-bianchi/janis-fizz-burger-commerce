@@ -1,6 +1,6 @@
 import { NotFoundException } from '@nestjs/common';
-import { ProductController } from './product.controller';
-import { ProductService } from './product.service';
+import { ProductController } from '../product.controller';
+import { ProductService } from '../product.service';
 
 describe('Product Controller', () => {
   let productController;
@@ -14,13 +14,11 @@ describe('Product Controller', () => {
   describe('findAll', () => {
     it('should return an array of products', async () => {
       const queryParams = {
-        query: { },
-        sort: { }
+        query: {},
+        sort: {}
       };
       const result = ['test'];
-      jest
-        .spyOn(productService, 'findAllProducts')
-        .mockResolvedValue(result);
+      jest.spyOn(productService, 'findAllProducts').mockResolvedValue(result);
 
       expect(await productController.findAll(queryParams)).toBe(result);
     });
@@ -30,18 +28,14 @@ describe('Product Controller', () => {
     it('should return a single product by ID', async () => {
       const productId = 'sampleID';
       const product = { id: productId, name: 'Sample Product' };
-      jest
-        .spyOn(productService, 'findProductById')
-        .mockResolvedValue(product);
+      jest.spyOn(productService, 'findProductById').mockResolvedValue(product);
 
       expect(await productController.findOne(productId)).toBe(product);
     });
 
     it('should throw a NotFoundException when product not found', async () => {
       const productId = 'nonExistingID';
-      jest
-        .spyOn(productService, 'findProductById')
-        .mockResolvedValue(null);
+      jest.spyOn(productService, 'findProductById').mockResolvedValue(null);
 
       await expect(productController.findOne(productId)).rejects.toThrowError(
         NotFoundException
@@ -139,26 +133,19 @@ describe('Product Controller', () => {
     it('should remove an existing product', async () => {
       const productId = 'sampleID';
       const product = { id: productId };
-      jest
-        .spyOn(productService, 'findProductById')
-        .mockResolvedValue(product);
-      jest
-        .spyOn(productService, 'deleteProduct')
-        .mockResolvedValue(product);
+      jest.spyOn(productService, 'findProductById').mockResolvedValue(product);
+      jest.spyOn(productService, 'deleteProduct').mockResolvedValue(product);
 
       expect(await productController.remove(productId)).toBe(product);
     });
 
     it('should throw a NotFoundException if product not found', async () => {
       const productId = 'nonExistingID';
-      jest
-        .spyOn(productService, 'findProductById')
-        .mockResolvedValue(null);
+      jest.spyOn(productService, 'findProductById').mockResolvedValue(null);
 
       await expect(productController.remove(productId)).rejects.toThrowError(
         NotFoundException
       );
     });
   });
-
 });

@@ -44,9 +44,7 @@ export class ProductController {
   @Get()
   @UsePipes(new QueryParamPipe())
   @Bind(Query())
-  async findAll(
-    queryParams
-  ) {
+  async findAll(queryParams) {
     const { query, sort } = queryParams;
     return this.productService.findAllProducts(query, sort);
   }

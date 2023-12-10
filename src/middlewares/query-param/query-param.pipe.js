@@ -38,7 +38,8 @@ export class QueryParamPipe {
     }
 
     return {
-      query, sort
+      query,
+      sort
     };
   }
 }
