@@ -1,73 +1,55 @@
 /* eslint-disable no-underscore-dangle */
 import { Dependencies } from '@nestjs/common';
-import { getModelToken } from '@nestjs/mongoose';
 import { v4 as uuid } from 'uuid';
-import { Product } from './schemas/product.schema';
+import { ProductRepository } from './product.repository';
 
-@Dependencies(getModelToken(Product.name))
+@Dependencies(ProductRepository)
 export class ProductService {
-  constructor(productModel) {
-    this.productModel = productModel;
+  constructor(productRepository) {
+    this.productRepository = productRepository;
   }
 
   async createProduct(productData) {
-    this.productModel.createIndexes({ name: 1 }, { unique: true });
-
     const lowercaseName = productData.name.toLowerCase();
     productData.normalizedName = lowercaseName;
-
     productData.id = uuid();
-    // eslint-disable-next-line new-cap
-    const createdProduct = new this.productModel(productData);
 
-    const savedProduct = await createdProduct.save();
-    const product = savedProduct.toObject();
+    const savedProduct = await this.productRepository.create(productData);
 
-    return { id: product.id };
+    return { id: savedProduct.id };
   }
 
   async findAllProducts(query, sort) {
-    let queryFind = this.productModel.find(query);
-    if(sort)
-      queryFind = queryFind.sort(sort);
-    return queryFind.select('-_id -__v')
-      .exec();
+    return this.productRepository.find(query, sort);
   }
 
   async findProductById(id) {
-    return this.productModel
-      .findOne({ id })
-      .select('-_id -__v')
-      .exec();
+    return this.productRepository
+      .findOne({ id });
   }
 
   async findProductByNormalizedName(normalizedName) {
-    return this.productModel
-      .findOne({ normalizedName })
-      .select('-_id -__v')
-      .exec();
+    return this.productRepository
+      .findOne({ normalizedName });
   }
 
   async updateProduct(id, productData) {
     delete productData.id;
     productData.dateModified = Date.now();
 
-    const updateProduct = await this.productModel
-      .findOneAndUpdate(
+    const updateProduct = await this.productRepository
+      .update(
         {
           id
         },
         productData,
         { new: true }
-      )
-      .exec();
-    const product = updateProduct.toObject();
+      );
 
-    return { id: product.id };
+    return { id: updateProduct.id };
   }
 
   async deleteProduct(id) {
-    return this.productModel.findOneAndDelete({ id })
-      .exec();
+    return this.productRepository.delete({ id });
   }
 }

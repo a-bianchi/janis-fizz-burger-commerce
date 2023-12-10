@@ -1,59 +1,26 @@
-import { Test } from '@nestjs/testing';
-import { getModelToken } from '@nestjs/mongoose';
 import { ProductService } from './product.service';
+import { ProductRepository } from './product.repository';
 
-describe('Product Service', () => {
+describe('ProductService', () => {
   let productService;
-  let mockProductModel;
+  let productRepositoryMock;
 
-  beforeEach(async () => {
-    mockProductModel = {
-      find: jest.fn().mockReturnThis(),
-      select: jest.fn().mockReturnThis(),
-      lean: jest.fn().mockReturnThis(),
-      exec: jest.fn(),
-      createIndexes: jest.fn().mockResolvedValue(),
-      save: jest.fn().mockResolvedValue({ toObject: jest.fn(() => ({ id: 'mockId' })) }),
-      findOne: jest.fn(),
-      findOneAndUpdate: jest.fn(),
-      findOneAndDelete: jest.fn()
-    };
+  beforeEach(() => {
+    productRepositoryMock = new ProductRepository();
 
-    const module = await Test.createTestingModule({
-      providers: [
-        ProductService,
-        {
-          provide: getModelToken('Product'),
-          useValue: mockProductModel
-        }
-      ]
-    }).compile();
-
-    productService = module.get(ProductService);
+    productService = new ProductService(productRepositoryMock);
   });
 
-  describe('deleteProduct', () => {
-    it('should delete a product by ID', async () => {
-      const mockProductId = 'mockId';
-      jest.spyOn(productService.productModel, 'findOneAndDelete').mockReturnValueOnce({
-        exec: jest.fn().mockResolvedValueOnce({ id: mockProductId })
-      });
+  describe('createProduct', () => {
+    it('should create a product', async () => {
+      const productData = { name: 'Test Product' };
+      const mockSavedProduct = { id: 'mockId', ...productData };
+      jest.spyOn(productRepositoryMock, 'create').mockResolvedValueOnce(mockSavedProduct);
 
-      const deletedProduct = await productService.deleteProduct(mockProductId);
-      expect(deletedProduct.id).toEqual(mockProductId);
-    });
-  });
+      const result = await productService.createProduct(productData);
 
-  describe('updateProduct', () => {
-    it('should update a product by ID', async () => {
-      const mockProductId = 'mockId';
-      const mockProductData = { name: 'Updated Product' };
-      jest.spyOn(productService.productModel, 'findOneAndUpdate').mockReturnValueOnce({
-        exec: jest.fn().mockResolvedValueOnce({ toObject: jest.fn(() => ({ id: mockProductId })) })
-      });
-
-      const updatedProduct = await productService.updateProduct(mockProductId, mockProductData);
-      expect(updatedProduct.id).toEqual(mockProductId);
+      expect(productRepositoryMock.create).toHaveBeenCalledWith(productData);
+      expect(result).toEqual({ id: mockSavedProduct.id });
     });
   });
 
@@ -61,37 +28,66 @@ describe('Product Service', () => {
     it('should find all products with given query and sort', async () => {
       const mockQuery = { name: 'MockProduct' };
       const mockSort = { name: 'asc' };
-      jest.spyOn(productService.productModel, 'find').mockReturnValueOnce({
-        sort: jest.fn().mockReturnValueOnce({ select: jest.fn().mockReturnValueOnce({ exec: jest.fn() }) })
-      });
+      const mockProducts = [{ id: '1', name: 'Product 1' }, { id: '2', name: 'Product 2' }];
+      jest.spyOn(productRepositoryMock, 'find').mockResolvedValueOnce(mockProducts);
 
-      await productService.findAllProducts(mockQuery, mockSort);
-      expect(productService.productModel.find).toHaveBeenCalledWith(mockQuery);
+      const result = await productService.findAllProducts(mockQuery, mockSort);
+
+      expect(productRepositoryMock.find).toHaveBeenCalledWith(mockQuery, mockSort);
+      expect(result).toEqual(mockProducts);
     });
   });
 
   describe('findProductById', () => {
     it('should find a product by ID', async () => {
-      const mockProductId = 'mockId';
-      jest.spyOn(productService.productModel, 'findOne').mockReturnValueOnce({
-        select: jest.fn().mockReturnValueOnce({ exec: jest.fn().mockResolvedValueOnce({ id: mockProductId }) })
-      });
+      const mockProductId = 'sampleID';
+      const mockProduct = { id: mockProductId, name: 'Sample Product' };
+      jest.spyOn(productRepositoryMock, 'findOne').mockResolvedValueOnce(mockProduct);
 
-      const foundProduct = await productService.findProductById(mockProductId);
-      expect(foundProduct.id).toEqual(mockProductId);
+      const result = await productService.findProductById(mockProductId);
+
+      expect(productRepositoryMock.findOne).toHaveBeenCalledWith({ id: mockProductId });
+      expect(result).toEqual(mockProduct);
+    });
+  });
+
+  describe('updateProduct', () => {
+    it('should update an existing product', async () => {
+      const mockProductId = 'sampleID';
+      const mockProductData = { name: 'Updated Product' };
+      const updatedProduct = { id: mockProductId, ...mockProductData };
+      jest.spyOn(productRepositoryMock, 'update').mockResolvedValueOnce(updatedProduct);
+
+      const result = await productService.updateProduct(mockProductId, mockProductData);
+
+      expect(productRepositoryMock.update).toHaveBeenCalledWith({ id: mockProductId }, mockProductData, { new: true });
+      expect(result).toEqual({ id: mockProductId });
+    });
+  });
+
+  describe('deleteProduct', () => {
+    it('should delete an existing product', async () => {
+      const mockProductId = 'sampleID';
+      const deletedProduct = { id: mockProductId };
+      jest.spyOn(productRepositoryMock, 'delete').mockResolvedValueOnce(deletedProduct);
+
+      const result = await productService.deleteProduct(mockProductId);
+
+      expect(productRepositoryMock.delete).toHaveBeenCalledWith({ id: mockProductId });
+      expect(result).toEqual({ id: mockProductId });
     });
   });
 
   describe('findProductByNormalizedName', () => {
     it('should find a product by normalized name', async () => {
-      const mockNormalizedName = 'mock-product';
-      jest.spyOn(productService.productModel, 'findOne').mockReturnValueOnce({
-        select: jest.fn().mockReturnValueOnce({ exec: jest.fn().mockResolvedValueOnce({ normalizedName: mockNormalizedName }) })
-      });
+      const mockNormalizedName = 'sample-product';
+      const mockProduct = { normalizedName: mockNormalizedName };
+      jest.spyOn(productRepositoryMock, 'findOne').mockResolvedValueOnce(mockProduct);
 
-      const foundProduct = await productService.findProductByNormalizedName(mockNormalizedName);
-      expect(foundProduct.normalizedName).toEqual(mockNormalizedName);
+      const result = await productService.findProductByNormalizedName(mockNormalizedName);
+
+      expect(productRepositoryMock.findOne).toHaveBeenCalledWith({ normalizedName: mockNormalizedName });
+      expect(result).toEqual(mockProduct);
     });
   });
-
 });

@@ -1,7 +1,6 @@
 import { Logger, ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
-import helmet from 'helmet';
 
 import { AppModule } from './modules/app/app.module';
 
@@ -24,8 +23,6 @@ async function bootstrap() {
     type: VersioningType.URI,
     defaultVersion: '1'
   });
-
-  app.use(helmet());
 
   await app.listen(AppModule.port, '0.0.0.0');
 
