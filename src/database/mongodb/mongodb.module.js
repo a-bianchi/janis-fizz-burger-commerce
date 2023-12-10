@@ -7,7 +7,7 @@ dotenv.config();
 @Module({
   imports: [
     MongooseModule.forRoot(
-      process.env.NODE_ENV === 'test'
+      process.env.NODE_ENV === 'docker'
         ? process.env.MONGO_TEST_CONNECTION_URI
         : process.env.MONGO_CONNECTION_URI,
       {

@@ -10,6 +10,8 @@ services:
     command: npm run start:dev api
     env_file:
       - ./.env
+    environment:
+      - NODE_ENV=docker
     restart: always
     depends_on:
       - db_mongo
