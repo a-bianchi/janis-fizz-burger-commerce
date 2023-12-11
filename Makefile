@@ -7,6 +7,14 @@ start:
 down: 
 	@ docker compose down
 
-up: 
-	@ docker compose up -d
+deploy:
+	@npm prune
+	@npm run build
+	@SLS_DEBUG=* sls deploy --verbose
+
+deploy-local:
+	@ sls offline start 2>&1
+
+deploy-remove:
+	@ serverless remove
 

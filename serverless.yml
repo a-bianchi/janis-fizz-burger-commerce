@@ -2,12 +2,16 @@ service: FizzBurgerChallenge
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs18.x
   memorySize: 192
   stage: ${opt:stage, 'local'}
   region: ${opt:region, 'us-east-1'}
   endpointType: REGIONAL
   apiName: FizzBurgerChallenge API
+  environment:
+    NODE_ENV: 'develop'
+    MONGO_CONNECTION_URI: 'mongodb+srv://alejob:Twmxb6U2bRKhoF3C@cluster0.gzs0tvb.mongodb.net/?retryWrites=true&w=majority'
+    MONGODB_NAME: 'burger'
 
 custom:
   serverless-offline:
@@ -16,22 +20,37 @@ custom:
     cacheInvalidationRegex: 'node_modules/'
 
 functions:
-  GetExample:
-    handler: src/example/get.handler
-    description: Función de ejemplo para GET. Eliminar cuando ya no se necesite más.
+  main:
+    handler: dist/lambda.handler
     events:
       - http:
           integration: lambda-proxy
-          method: get
-          path: /example
-  PostExample:
-    handler: src/example/post.handler
-    description: Función de ejemplo para POST. Eliminar cuando ya no se necesite más.
-    events:
-      - http:
-          integration: lambda-proxy
-          method: post
-          path: /example
+          method: any
+          path: /{any+}
 
 plugins:
   - serverless-offline
+  - serverless-plugin-optimize
+
+package:
+  exclude:
+    - .env
+    - .github
+    - .husky
+    - .babelrc
+    - .dockerignore
+    - .eslintignore
+    - .eslintrc.js
+    - .gitignore
+    - .env.example
+    - .prettierrc
+    - coverage/**
+    - src/**
+    - test/**
+    - postman/**
+    - docker-compose.yml
+    - Dockerfile
+    - commitlint.config
+    - Makefile
+    - CHANGELOG.md
+    - README.md
