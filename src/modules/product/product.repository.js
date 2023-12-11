@@ -43,5 +43,4 @@ export class ProductRepository {
   async delete(id) {
     return this.productModel.deleteMany({ id }).exec();
   }
-
 }

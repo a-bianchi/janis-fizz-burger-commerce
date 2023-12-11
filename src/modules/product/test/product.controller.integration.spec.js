@@ -85,4 +85,5 @@ describe('Products Controller Integration', () => {
       expect(isValidUUID).toBeTruthy();
     });
   });
+
 });
