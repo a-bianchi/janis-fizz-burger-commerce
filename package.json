@@ -54,6 +54,7 @@
     "@babel/register": "7.22.15",
     "@commitlint/cli": "^17.7.1",
     "@commitlint/config-conventional": "^17.7.0",
+    "dotenv-cli": "^7.3.0",
     "eslint": "^8.55.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.1.0",
@@ -64,6 +65,7 @@
     "nodemon": "3.0.1",
     "plugin": "^0.0.15",
     "prettier": "^3.0.3",
+    "serverless-dotenv-plugin": "^6.0.0",
     "serverless-offline": "^13.3.1",
     "serverless-plugin-optimize": "^4.2.1-rc.1",
     "supertest": "^6.3.3"

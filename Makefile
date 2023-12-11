@@ -8,13 +8,19 @@ down:
 	@ docker compose down
 
 deploy:
-	@npm prune
-	@npm run build
-	@SLS_DEBUG=* sls deploy --verbose
+	@ echo "Starting deployment for the development environment..."
+	@ npx dotenv npm prune
+	@ npx dotenv npm run build
+	@ npx dotenv sls deploy --stage=develop --verbose
+	@ echo "Deployment for the development environment completed successfully!"
 
 deploy-local:
-	@ sls offline start 2>&1
+	@ echo "Starting local deployment..."
+	@ npx dotenv sls offline start 2>&1
+	@ echo "Local deployment finished!"
 
 deploy-remove:
-	@ serverless remove
+	@ echo "Starting service removal for the development environment..."
+	@ npx dotenv sls remove --stage=develop
+	@ echo "Service removal for the development environment completed!"
 

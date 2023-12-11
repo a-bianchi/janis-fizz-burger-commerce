@@ -9,9 +9,9 @@ provider:
   endpointType: REGIONAL
   apiName: FizzBurgerChallenge API
   environment:
-    NODE_ENV: 'develop'
-    MONGO_CONNECTION_URI: 'mongodb+srv://alejob:Twmxb6U2bRKhoF3C@cluster0.gzs0tvb.mongodb.net/?retryWrites=true&w=majority'
-    MONGODB_NAME: 'burger'
+    NODE_ENV: ${env:NODE_ENV}
+    MONGO_CONNECTION_URI: ${env:MONGO_CONNECTION_URI}
+    MONGODB_NAME: ${env:MONGODB_NAME}
 
 custom:
   serverless-offline:
@@ -31,6 +31,7 @@ functions:
 plugins:
   - serverless-offline
   - serverless-plugin-optimize
+  - serverless-dotenv-plugin
 
 package:
   exclude:
