@@ -179,6 +179,11 @@ $ yarn run test:cov
 ## ENDPOINTS
 Below are the available endpoints:
 
+You can access the endpoints via:
+- Localhost: `http://localhost:3000`
+- Amazon Server: `https://hs035q76c3.execute-api.us-east-1.amazonaws.com/local/`
+
+
 1. GetAllProducts
 ```bash
 curl -X 'GET' \
