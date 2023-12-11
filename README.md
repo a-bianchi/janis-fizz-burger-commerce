@@ -15,7 +15,7 @@
   <p align="center">
     REST API for product management, as part of the technical challenge for Fizzmod.
     <br />
-    <a href="https://github.com/a-bianchi/blob/develop/fizz-burger-commerce/CHALLENGE_README.md"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/a-bianchi/fizz-burger-commerce/blob/develop/CHALLENGE_README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
   </p>
