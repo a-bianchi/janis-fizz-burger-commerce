@@ -15,7 +15,7 @@
   <p align="center">
     REST API for product management, as part of the technical challenge for Fizzmod.
     <br />
-    <a href="https://github.com/a-bianchi/fizz-burger-commerce/CHALLENGE_README.md"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/a-bianchi/blob/develop/fizz-burger-commerce/CHALLENGE_README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
   </p>
@@ -40,9 +40,10 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#endpoints">Endpoints</a></li>
-    <li><a href="#test-examples">Test Examples</a></li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#deploy">Deploy</a></li>
+    <li><a href="#test">Test</a></li>
+    <li><a href="#endpoints">Endpoints</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -159,7 +160,9 @@ make deploy-local
 ```
 This command allows deploying the application locally for testing purposes.
 
-<!-- TEST EXAMPLES -->
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- TEST -->
 ## Test
 
 ```bash
@@ -170,8 +173,10 @@ $ npm run test
 $ yarn run test:cov
 ```
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 <!-- ENDPOINTS -->
-## Testing the API
+## ENDPOINTS
 Below are the available endpoints:
 
 1. GetAllProducts
