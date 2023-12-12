@@ -19,7 +19,5 @@ jobs:
         run: sudo npm install -g jest
       - name: check lint
         run: npm run lint
-      - name: format
-        run: npm run format
       - name: Run Tests
         run: npm run test

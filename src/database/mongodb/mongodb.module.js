@@ -6,15 +6,10 @@ dotenv.config();
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      process.env.NODE_ENV === 'docker'
-        ? process.env.MONGO_TEST_CONNECTION_URI
-        : process.env.MONGO_CONNECTION_URI,
-      {
-        dbName: process.env.MONGODB_NAME,
-        autoIndex: true
-      }
-    )
+    MongooseModule.forRoot(process.env.NODE_ENV === 'docker' ? process.env.MONGO_TEST_CONNECTION_URI : process.env.MONGO_CONNECTION_URI, {
+      dbName: process.env.MONGODB_NAME,
+      autoIndex: true
+    })
   ],
   providers: [],
   exports: []

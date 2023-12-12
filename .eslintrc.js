@@ -1,6 +1,6 @@
 module.exports = {
-  extends: 'airbnb-base',
-
+  extends: ['airbnb-base', 'prettier'],
+  plugins: ['prettier'],
   globals: {
     describe: 'readonly',
     it: 'readonly',
@@ -34,12 +34,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
 
     'comma-dangle': ['error', 'never'],
-    'no-restricted-syntax': [
-      'error',
-      'ForInStatement',
-      'LabeledStatement',
-      'WithStatement'
-    ],
+    'no-restricted-syntax': ['error', 'ForInStatement', 'LabeledStatement', 'WithStatement'],
     curly: ['error', 'multi-or-nest'],
     'space-before-function-paren': [
       'error',
@@ -86,11 +81,7 @@ module.exports = {
         }
       }
     ],
-    'nonblock-statement-body-position': [
-      'error',
-      'below',
-      { overrides: { else: 'any' } }
-    ],
+    'nonblock-statement-body-position': ['error', 'below', { overrides: { else: 'any' } }],
     'no-plusplus': 0,
     'object-curly-newline': [
       'error',
@@ -134,6 +125,15 @@ module.exports = {
     'no-param-reassign': 0,
     'no-prototype-builtins': 0,
     'function-paren-newline': 0,
-    'no-await-in-loop': 0
+    'no-await-in-loop': 0,
+    'indent': [
+      'error',
+      2,
+      {
+        'SwitchCase': 1, 
+        'VariableDeclarator': 'first', 
+        'outerIIFEBody': 1, 
+      }
+    ]
   }
 };

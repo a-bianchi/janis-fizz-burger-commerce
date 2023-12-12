@@ -119,6 +119,10 @@ The environment necessary to run the service locally is detailed below.
 ## Usage
 
 1. Stop the container running the service, named "api".
+```bash
+# development
+$ make stop-api
+```
 
 2. Initiate the local testing by starting the project from the terminal using the command:
 ```bash
@@ -134,7 +138,7 @@ $ npm start:dev
 <!-- DEPLOY -->
 ## Deploy
 
-The deployment is configured in gitaction in the "develop" branch only, when you add a pull request to the branch the papilene will execute the serverless framework commands, making the deployment automatically in Aws.
+The deployment is configured in gitaction in the "develop" branch only, when you add a pull request to the branch the pipeline will execute the serverless framework commands, making the deployment automatically in Aws.
 
 ### Local Deployment Testing
 

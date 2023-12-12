@@ -5,37 +5,33 @@ import { Injectable } from '@nestjs/common';
 export class QueryParamPipe {
   transform(value, metadata) {
     const {
-      name,
-      type,
-      priceFrom,
-      priceTo,
-      isPromotion,
-      orderBy,
-      orderDirection
+      name, type, priceFrom, priceTo, isPromotion, orderBy, orderDirection 
     } = value;
     const query = {};
 
-    if(name)
+    if(name) 
       query.name = { $regex: name, $options: 'i' };
 
-    if(type)
+    if(type) 
       query.type = type;
 
-    if(priceFrom !== undefined && priceTo !== undefined)
+    if(priceFrom !== undefined && priceTo !== undefined) 
       query.price = { $gte: priceFrom, $lte: priceTo };
-    else if(priceFrom !== undefined)
+    else if(priceFrom !== undefined) 
       query.price = { $gte: priceFrom };
-    else if(priceTo !== undefined)
+    else if(priceTo !== undefined) 
       query.price = { $lte: priceTo };
 
-    if(isPromotion !== undefined)
+    if(isPromotion !== undefined) 
       query.isPromotion = isPromotion;
 
     const sort = {};
-    if(orderBy && ['name', 'price', 'type', 'discount'].includes(orderBy)) {
-      if(['desc', 'asc'].includes(orderDirection.toLowerCase()))
+    if(orderBy && ['name', 'price', 'type', 'discount'].includes(orderBy)) 
+    {
+      if(['desc', 'asc'].includes(orderDirection.toLowerCase())) 
         sort[orderBy] = orderDirection === 'desc' ? -1 : 1;
     }
+    
 
     return {
       query,

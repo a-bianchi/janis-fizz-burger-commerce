@@ -36,8 +36,7 @@ export class Product {
 
   @Prop({
     type: String,
-    default:
-      'https://gulagu.es/wp-content/uploads/2020/12/hamburguesa-generica-01-600x600.jpg'
+    default: 'https://gulagu.es/wp-content/uploads/2020/12/hamburguesa-generica-01-600x600.jpg'
   })
     image;
 

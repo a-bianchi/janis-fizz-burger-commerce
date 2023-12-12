@@ -20,22 +20,18 @@ export class ProductRepository {
 
   async find(query, sort) {
     let queryFind = this.productModel.find(query);
-    if(sort)
+    if(sort) 
       queryFind = queryFind.sort(sort);
     return queryFind.select('-_id -__v').exec();
   }
 
   async findOne(productFilterQuery) {
-    return this.productModel
-      .findOne(productFilterQuery)
-      .select('-_id -__v')
+    return this.productModel.findOne(productFilterQuery).select('-_id -__v')
       .exec();
   }
 
   async update(productFilterQuery, productData) {
-    const updateProduct = await this.productModel
-      .findOneAndUpdate(productFilterQuery, productData, { new: true })
-      .exec();
+    const updateProduct = await this.productModel.findOneAndUpdate(productFilterQuery, productData, { new: true }).exec();
 
     return updateProduct;
   }

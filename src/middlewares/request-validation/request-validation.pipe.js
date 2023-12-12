@@ -11,11 +11,9 @@ export class RequestValidationPipe {
   }
 
   async transform(value, metadata) {
-    if(!value?.isPromotion && value?.discount) {
-      throw new BadRequestException(
-        "If 'isPromotion' is false, 'discount' should not be provided."
-      );
-    }
+    if(!value?.isPromotion && value?.discount) 
+      throw new BadRequestException("If 'isPromotion' is false, 'discount' should not be provided.");
+    
 
     const productDto = new this.Dto();
     Object.assign(productDto, value);

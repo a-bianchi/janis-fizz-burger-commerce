@@ -37,9 +37,7 @@ describe('Product Controller', () => {
       const productId = 'nonExistingID';
       jest.spyOn(productService, 'findProductById').mockResolvedValue(null);
 
-      await expect(productController.findOne(productId)).rejects.toThrowError(
-        NotFoundException
-      );
+      await expect(productController.findOne(productId)).rejects.toThrowError(NotFoundException);
     });
   });
 
@@ -52,23 +50,13 @@ describe('Product Controller', () => {
         image: 'https://example.com/burger.jpg',
         isPromotion: true,
         discount: 2.5,
-        ingredients: [
-          'beef patty',
-          'lettuce',
-          'tomato',
-          'cheddar cheese',
-          'brioche bun'
-        ],
+        ingredients: ['beef patty', 'lettuce', 'tomato', 'cheddar cheese', 'brioche bun'],
         dateCreated: '2023-12-09T17:25:39.340Z',
         dateModified: '2023-12-09T17:25:39.340Z'
       };
       const createdProduct = { id: 'sampleID', ...productData };
-      jest
-        .spyOn(productService, 'findProductByNormalizedName')
-        .mockResolvedValue(null);
-      jest
-        .spyOn(productService, 'createProduct')
-        .mockResolvedValue(createdProduct);
+      jest.spyOn(productService, 'findProductByNormalizedName').mockResolvedValue(null);
+      jest.spyOn(productService, 'createProduct').mockResolvedValue(createdProduct);
 
       expect(await productController.create(productData)).toBe(createdProduct);
     });
@@ -81,23 +69,13 @@ describe('Product Controller', () => {
         image: 'https://example.com/burger.jpg',
         isPromotion: true,
         discount: 2.5,
-        ingredients: [
-          'beef patty',
-          'lettuce',
-          'tomato',
-          'cheddar cheese',
-          'brioche bun'
-        ],
+        ingredients: ['beef patty', 'lettuce', 'tomato', 'cheddar cheese', 'brioche bun'],
         dateCreated: '2023-12-09T17:25:39.340Z',
         dateModified: '2023-12-09T17:25:39.340Z'
       };
-      jest
-        .spyOn(productService, 'findProductByNormalizedName')
-        .mockResolvedValue('Product already exists');
+      jest.spyOn(productService, 'findProductByNormalizedName').mockResolvedValue('Product already exists');
 
-      await expect(productController.create(productData)).rejects.toThrowError(
-        'Product already exists'
-      );
+      await expect(productController.create(productData)).rejects.toThrowError('Product already exists');
     });
   });
 
@@ -110,22 +88,12 @@ describe('Product Controller', () => {
         image: 'https://example.com/burger.jpg',
         isPromotion: true,
         discount: 2.5,
-        ingredients: [
-          'beef patty',
-          'lettuce',
-          'tomato',
-          'cheddar cheese',
-          'brioche bun'
-        ]
+        ingredients: ['beef patty', 'lettuce', 'tomato', 'cheddar cheese', 'brioche bun']
       };
       const updatedProduct = { id: productId };
-      jest
-        .spyOn(productService, 'updateProduct')
-        .mockResolvedValue(updatedProduct);
+      jest.spyOn(productService, 'updateProduct').mockResolvedValue(updatedProduct);
 
-      expect(await productController.update(productId, productData)).toBe(
-        updatedProduct
-      );
+      expect(await productController.update(productId, productData)).toBe(updatedProduct);
     });
   });
 
@@ -143,9 +111,7 @@ describe('Product Controller', () => {
       const productId = 'nonExistingID';
       jest.spyOn(productService, 'findProductById').mockResolvedValue(null);
 
-      await expect(productController.remove(productId)).rejects.toThrowError(
-        NotFoundException
-      );
+      await expect(productController.remove(productId)).rejects.toThrowError(NotFoundException);
     });
   });
 });

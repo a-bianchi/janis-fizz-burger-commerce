@@ -7,6 +7,9 @@ start:
 down: 
 	@ docker compose down
 
+stop-api:
+	@ docker stop api
+
 deploy:
 	@ echo "Starting deployment for the development environment..."
 	@ npx dotenv npm prune

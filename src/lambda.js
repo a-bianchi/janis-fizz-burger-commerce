@@ -10,11 +10,9 @@ let cachedNestApp;
 async function bootstrapServer() {
   const serverOptions = { logger: true };
   const instance = fastify(serverOptions);
-  const app = await NestFactory.create(
-    AppModule,
-    new FastifyAdapter(instance),
-    { logger: !process.env.AWS_EXECUTION_ENV ? new Logger() : console }
-  );
+  const app = await NestFactory.create(AppModule, new FastifyAdapter(instance), {
+    logger: !process.env.AWS_EXECUTION_ENV ? new Logger() : console
+  });
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -37,7 +35,7 @@ async function bootstrapServer() {
 }
 
 export const handler = async (event, context) => {
-  if(!cachedNestApp)
+  if(!cachedNestApp) 
     cachedNestApp = await bootstrapServer();
 
   return cachedNestApp.proxy(event, context);

@@ -4,11 +4,7 @@ import { FastifyAdapter } from '@nestjs/platform-fastify';
 import { AppModule } from './modules/app/app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(
-    AppModule,
-    new FastifyAdapter({ logger: true }),
-    { cors: true }
-  );
+  const app = await NestFactory.create(AppModule, new FastifyAdapter({ logger: true }), { cors: true });
 
   app.useGlobalPipes(
     new ValidationPipe({

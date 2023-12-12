@@ -32,10 +32,9 @@ export class ProductController {
   @Bind(Body())
   async create(productData) {
     const lowercaseName = productData.name.toLowerCase();
-    const exists =
-      await this.productService.findProductByNormalizedName(lowercaseName);
+    const exists = await this.productService.findProductByNormalizedName(lowercaseName);
 
-    if(exists)
+    if(exists) 
       throw new BadRequestException('Product already exists');
 
     return this.productService.createProduct(productData);
@@ -54,7 +53,7 @@ export class ProductController {
   async findOne(id) {
     const product = await this.productService.findProductById(id);
 
-    if(!product)
+    if(!product) 
       throw new NotFoundException('Product not found');
 
     return product;
@@ -72,7 +71,7 @@ export class ProductController {
   async remove(id) {
     const product = await this.productService.findProductById(id);
 
-    if(!product)
+    if(!product) 
       throw new NotFoundException('Product not exits');
 
     await this.productService.deleteProduct(id);

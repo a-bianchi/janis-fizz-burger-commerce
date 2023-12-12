@@ -5,11 +5,7 @@ import { MongodbModule } from '../../database/mongodb/mongodb.module';
 import { ProductModule } from '../product/product.module';
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    MongodbModule,
-    ProductModule
-  ],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), MongodbModule, ProductModule],
   controllers: [PingController],
   providers: []
 })

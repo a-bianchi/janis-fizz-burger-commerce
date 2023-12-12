@@ -35,8 +35,7 @@ describe('Products Controller Integration', () => {
 
   describe('Endpoint post products', () => {
     it('should return an id product', async () => {
-      const response = await request(httpServer)
-        .post('/products')
+      const response = await request(httpServer).post('/products')
         .send(productCreateMock);
       expect(response.status).toBe(201);
       expect(typeof response.body.id).toBe('string');
@@ -50,8 +49,7 @@ describe('Products Controller Integration', () => {
     it('should return an id product', async () => {
       const products = await request(httpServer).get('/products');
       const product = products.body[0];
-      const response = await request(httpServer)
-        .put(`/products/${product.id}`)
+      const response = await request(httpServer).put(`/products/${product.id}`)
         .send(productUpdateMock);
       expect(response.status).toBe(200);
       expect(typeof response.body.id).toBe('string');
@@ -75,9 +73,7 @@ describe('Products Controller Integration', () => {
     it('should return an id product', async () => {
       const products = await request(httpServer).get('/products');
       const product = products.body[0];
-      const response = await request(httpServer).delete(
-        `/products/${product.id}`
-      );
+      const response = await request(httpServer).delete(`/products/${product.id}`);
       expect(response.status).toBe(200);
       expect(typeof response.body.id).toBe('string');
 
@@ -85,5 +81,4 @@ describe('Products Controller Integration', () => {
       expect(isValidUUID).toBeTruthy();
     });
   });
-
 });
