@@ -6,7 +6,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/a-bianchi/fizz-burger-commerce">
+  <a href="https://github.com/a-bianchi/janis-fizz-burger-commerce">
     <img src="https://avatars3.githubusercontent.com/u/49998302?s=200&v=4" alt="Logo" width="120" height="100">
   </a>
 
@@ -15,7 +15,7 @@
   <p align="center">
     REST API for product management, as part of the technical challenge for Fizzmod.
     <br />
-    <a href="https://github.com/a-bianchi/fizz-burger-commerce/blob/develop/CHALLENGE_README.md"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/a-bianchi/janis-fizz-burger-commerce/blob/develop/CHALLENGE_README.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
   </p>
@@ -92,7 +92,7 @@ The environment necessary to run the service locally is detailed below.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/a-bianchi/fizz-burger-commerce/
+   git clone https://github.com/a-bianchi/janis-fizz-burger-commerce/
    ```
    
 3. Rename the .env.example file to .env.
@@ -104,7 +104,7 @@ The environment necessary to run the service locally is detailed below.
 
 5. Wait a few seconds for the containers to run.
 
-6. Import the <a href="https://github.com/a-bianchi/fizz-burger-commerce/blob/develop/postman/Janis%20Challenge.postman_collection.json">postman collection</a> located in the "postman" folder to be able to test.
+6. Import the <a href="https://github.com/a-bianchi/janis-fizz-burger-commerce/blob/develop/postman/Janis%20Challenge.postman_collection.json">postman collection</a> located in the "postman" folder to be able to test.
 
 7. You can test if the service is running using the following command:
    ```sh
@@ -185,7 +185,7 @@ Below are the available endpoints:
 
 You can access the endpoints via:
 - Localhost: `http://localhost:3000`
-- Amazon Server: `https://hs035q76c3.execute-api.us-east-1.amazonaws.com/local/`
+- Amazon Server: `not available`
 
 
 1. GetAllProducts
@@ -251,7 +251,7 @@ http://localhost:3000/v1/products \
 
 Alejo Bianchi - alejobianchi@gmail.com
 
-Project Link: [https://github.com/a-bianchi/fizz-burger-commerce](https://github.com/a-bianchi/fizz-burger-commerce)
+Project Link: [https://github.com/a-bianchi/janis-fizz-burger-commerce](https://github.com/a-bianchi/fizz-burger-commerce)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
